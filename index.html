@@ -22,11 +22,16 @@
                 </div>
             </div>
             
-            <button onclick="openModal()" class="btn-primary">
-                <i class="fa-solid fa-thumbtack"></i>
-                <span class="btn-text-full">Fixar Novo Aviso</span>
-                <span class="btn-text-mobile">Novo</span>
-            </button>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <button onclick="openModal()" class="btn-primary">
+                    <i class="fa-solid fa-thumbtack"></i>
+                    <span class="btn-text-full">Fixar Novo Aviso</span>
+                    <span class="btn-text-mobile">Novo</span>
+                </button>
+                <button onclick="logout()" class="btn-cancel" title="Sair da conta" style="padding: 8px 12px; cursor: pointer;">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </button>
+            </div>
         </div>
     </header>
 
@@ -213,11 +218,136 @@
         </div>
     </div>
 
+    <!-- Modal / Tela de Autenticação (Login / Cadastro) -->
+    <div id="auth-modal" class="modal-backdrop" style="display: flex; z-index: 9999;">
+        <div class="modal-card" style="max-width: 400px; margin: 10vh auto;">
+            <div class="modal-header">
+                <h2><i class="fa-solid fa-lock text-red"></i> Entrar no Mural Fatec</h2>
+            </div>
+            
+            <!-- Formulário de Login -->
+            <form id="login-form" onsubmit="handleLogin(event)" class="modal-form">
+                <div class="form-group">
+                    <label>E-mail institucional</label>
+                    <input type="email" id="login-email" required placeholder="seu.email@fatec.sp.gov.br" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Senha</label>
+                    <input type="password" id="login-senha" required placeholder="Sua senha" class="form-control">
+                </div>
+                <div class="modal-actions" style="flex-direction: column; gap: 10px;">
+                    <button type="submit" class="btn-submit" style="width: 100%;">Entrar</button>
+                    <button type="button" onclick="toggleAuthMode()" class="btn-cancel" style="width: 100%; border: none; background: none; color: var(--primary); cursor: pointer;">Não tem conta? Cadastre-se</button>
+                </div>
+            </form>
+
+            <!-- Formulário de Cadastro -->
+            <form id="register-form" onsubmit="handleRegister(event)" class="modal-form hidden">
+                <div class="form-group">
+                    <label>Nome Completo</label>
+                    <input type="text" id="reg-nome" required placeholder="Ex: Ana Silva" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Curso / Semestre</label>
+                    <input type="text" id="reg-curso" required placeholder="Ex: ADS - 5º Semestre" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>E-mail</label>
+                    <input type="email" id="reg-email" required placeholder="seu.email@fatec.sp.gov.br" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Senha</label>
+                    <input type="password" id="reg-senha" required placeholder="Crie uma senha" class="form-control">
+                </div>
+                <div class="modal-actions" style="flex-direction: column; gap: 10px;">
+                    <button type="submit" class="btn-submit" style="width: 100%;">Cadastrar e Entrar</button>
+                    <button type="button" onclick="toggleAuthMode()" class="btn-cancel" style="width: 100%; border: none; background: none; color: var(--primary); cursor: pointer;">Já tem uma conta? Faça login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Container para Notificações Toast -->
     <div id="toast-container" class="toast-container"></div>
 
-    <!-- Script de Interatividade -->
+    <!-- Script de Interatividade e Autenticação -->
     <script>
+        // --- VERIFICAÇÃO DE SESSÃO AO CARREGAR ---
+        document.addEventListener("DOMContentLoaded", () => {
+            const usuarioLogado = localStorage.getItem("mural_usuario_ativo");
+            const authModal = document.getElementById("auth-modal");
+
+            if (!usuarioLogado) {
+                authModal.style.display = "flex";
+            } else {
+                authModal.style.display = "none";
+            }
+        });
+
+        // Alternar entre formulários de Login e Cadastro
+        function toggleAuthMode() {
+            document.getElementById("login-form").classList.toggle("hidden");
+            document.getElementById("register-form").classList.toggle("hidden");
+        }
+
+        // Processo de Cadastro
+        function handleRegister(event) {
+            event.preventDefault();
+            const nome = document.getElementById("reg-nome").value;
+            const curso = document.getElementById("reg-curso").value;
+            const email = document.getElementById("reg-email").value;
+            const senha = document.getElementById("reg-senha").value;
+
+            let usuarios = JSON.parse(localStorage.getItem("mural_usuarios") || "[]");
+            
+            if (usuarios.some(u => u.email === email)) {
+                alert("Este e-mail já está cadastrado!");
+                return;
+            }
+
+            usuarios.push({ nome, curso, email, senha });
+            localStorage.setItem("mural_usuarios", JSON.stringify(usuarios));
+
+            const usuarioAtivo = { nome, curso, email };
+            localStorage.setItem("mural_usuario_ativo", JSON.stringify(usuarioAtivo));
+
+            document.getElementById("auth-modal").style.display = "none";
+            showToast("Bem-vindo!", "Cadastro realizado com sucesso.");
+        }
+
+        // Processo de Login
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById("login-email").value;
+            const senha = document.getElementById("login-senha").value;
+
+            let usuarios = JSON.parse(localStorage.getItem("mural_usuarios") || "[]");
+            
+            // Cria um usuário padrão para facilitar testes se a lista estiver vazia
+            if (usuarios.length === 0) {
+                usuarios.push({ nome: "Rafael Costa", curso: "Redes", email: "teste@fatec.sp.gov.br", senha: "123" });
+                localStorage.setItem("mural_usuarios", JSON.stringify(usuarios));
+            }
+
+            const user = usuarios.find(u => u.email === email && u.senha === senha);
+
+            if (user) {
+                const usuarioAtivo = { nome: user.nome, curso: user.curso, email: user.email };
+                localStorage.setItem("mural_usuario_ativo", JSON.stringify(usuarioAtivo));
+                document.getElementById("auth-modal").style.display = "none";
+                showToast("Login bem-sucedido!", `Olá, ${user.nome}!`);
+            } else {
+                alert("E-mail ou senha incorretos!");
+            }
+        }
+
+        // Logout
+        function logout() {
+            localStorage.removeItem("mural_usuario_ativo");
+            location.reload();
+        }
+
+        // --- FUNÇÕES ORIGINAIS DO MURAL ---
         function filterCards(category) {
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 if(btn.dataset.target === category) {
