@@ -25,7 +25,7 @@ function handleRegister(event) {
     const senha = document.getElementById("reg-senha").value;
 
     let usuarios = JSON.parse(localStorage.getItem("mural_usuarios") || "[]");
-    
+
     if (usuarios.some(u => u.email === email)) {
         alert("Este e-mail já está cadastrado!");
         return;
@@ -48,7 +48,7 @@ function handleLogin(event) {
     const senha = document.getElementById("login-senha").value;
 
     let usuarios = JSON.parse(localStorage.getItem("mural_usuarios") || "[]");
-    
+
     // Cria um usuário padrão para facilitar testes se a lista estiver vazia
     if (usuarios.length === 0) {
         usuarios.push({ nome: "Rafael Costa", curso: "Redes", email: "teste@fatec.sp.gov.br", senha: "123" });
@@ -76,7 +76,7 @@ function logout() {
 // --- FUNÇÕES ORIGINAIS DO MURAL ---
 function filterCards(category) {
     document.querySelectorAll('.filter-btn').forEach(btn => {
-        if(btn.dataset.target === category) {
+        if (btn.dataset.target === category) {
             btn.classList.add('active');
         } else {
             btn.classList.remove('active');
@@ -95,7 +95,7 @@ function filterCards(category) {
     });
 
     const emptyState = document.getElementById('empty-state');
-    if(visibleCount === 0) {
+    if (visibleCount === 0) {
         emptyState.classList.remove('hidden');
     } else {
         emptyState.classList.add('hidden');
@@ -105,7 +105,7 @@ function filterCards(category) {
 function upvote(btn) {
     const countSpan = btn.querySelector('.count');
     let count = parseInt(countSpan.innerText);
-    
+
     if (btn.classList.contains('voted')) {
         countSpan.innerText = count - 1;
         btn.classList.remove('voted');
@@ -113,7 +113,7 @@ function upvote(btn) {
         countSpan.innerText = count + 1;
         btn.classList.add('voted');
     }
-    
+
     btn.style.transform = 'scale(1.2)';
     setTimeout(() => { btn.style.transform = 'scale(1)'; }, 150);
 }
@@ -139,16 +139,18 @@ function closeModal() {
 }
 
 function submitForm(event) {
-    event.preventDefault(); 
+    event.preventDefault();
     closeModal();
     showToast('Aviso Publicado!', 'Seu recado foi fixado no mural com sucesso.');
     filterCards('todos');
+
+    addPubli(event)
 }
 
 function showToast(title, message) {
     const container = document.getElementById('toast-container');
     const toast = document.createElement('div');
-    
+
     toast.className = 'toast-item toast-enter';
     toast.innerHTML = `
         <div class="toast-icon">
@@ -159,7 +161,7 @@ function showToast(title, message) {
             <p>${message}</p>
         </div>
     `;
-    
+
     container.appendChild(toast);
 
     setTimeout(() => {
@@ -172,4 +174,38 @@ function showToast(title, message) {
         toast.classList.add('toast-exit');
         setTimeout(() => toast.remove(), 300);
     }, 4000);
+}
+
+function addPubli(form) {
+    const categoria = form.target.elements.categoria.value
+    const titulo = form.target.elements.titulo.value
+    const descricao = form.target.elements.descricao.value
+
+    const user = JSON.parse(localStorage.getItem("mural_usuarios"))[1]
+
+    const mural = document.getElementById('mural-grid')
+
+    const html = `<article class="mural-card paper-card border-estagio" data-category="estagio">
+                    <div class="card-header">
+                        <span class="badge badge-${categoria}">${categoria}</span>
+                        <span class="card-time"><i class="fa-regular fa-clock"></i> Há 2h</span>
+                    </div>
+                    <h3 class="card-title">${titulo}</h3>
+                    <p class="card-body">${descricao}</p>
+                    <div class="card-footer">
+                        <div class="user-info">
+                            <div class="avatar avatar-green">${user.nome[0] + user.nome[1]}</div>
+                            <div class="user-details">
+                                <p class="user-name">${user.nome}</p>
+                                <p class="user-sub">${user.curso}</p>
+                            </div>
+                        </div>
+                        <button onclick="upvote(this)" class="upvote-btn">
+                            <i class="fa-solid fa-arrow-up"></i> <span class="count">120</span>
+                        </button>
+                    </div>
+                </article>`
+
+
+    mural.insertAdjacentHTML('afterbegin', html)
 }
