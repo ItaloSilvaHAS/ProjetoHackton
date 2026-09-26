@@ -5,231 +5,191 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mural Digital Fatec</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css"
 </head>
+<body>
 
-<script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'] },
-                    colors: {
-                        fatec: { red: '#b91c1c', dark: '#1f2937', bg: '#f3f4f6' }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        /* Custom scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-        
-        /* Toast Animations */
-        .toast-enter { transform: translateY(100%); opacity: 0; }
-        .toast-enter-active { transform: translateY(0); opacity: 1; transition: all 0.3s ease-out; }
-        .toast-exit-active { transform: translateY(100%); opacity: 0; transition: all 0.3s ease-in; }
-
-        /* Masonry fix to prevent cards from splitting across columns */
-        .break-inside-avoid { break-inside: avoid; }
-        
-        /* Subtle paper effect */
-        .paper-card {
-            background-color: #ffffff;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            transition: all 0.2s ease-in-out;
-        }
-        .paper-card:hover {
-            transform: translateY(-4px) rotate(-0.5deg);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-    </style>
-
-<body class="bg-fatec-bg text-gray-800 font-sans min-h-screen flex flex-col">
-
-    <header class="bg-white shadow-sm sticky top-0 z-30 border-b-4 border-fatec-red">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="bg-fatec-red p-2.5 rounded-lg text-white shadow-sm">
-                    <i class="fa-solid fa-clipboard-list text-xl"></i>
+    <header class="header">
+        <div class="header-container">
+            <div class="header-brand">
+                <div class="brand-icon">
+                    <i class="fa-solid fa-clipboard-list"></i>
                 </div>
                 <div>
-                    <h1 class="text-2xl font-bold text-gray-900 leading-tight">Mural Fatec</h1>
-                    <p class="text-xs text-gray-500 font-medium">Avisos, Sugestões e oportunidades</p>
+                    <h1 class="brand-title">Mural Fatec</h1>
+                    <p class="brand-subtitle">Avisos, Sugestões e Oportunidades</p>
                 </div>
             </div>
             
-            <button onclick="openModal()" class="bg-fatec-red hover: text-white font-semibold py-2.5 px-5 rounded-lg shadow-md transition-colors flex items-center gap-2">
-                <i class="fa-solid fa-thumbtack"></i>
-                <span class="hidden sm:inline">Fixar Novo Aviso</span>
-                <span class="sm:hidden">Novo</span>
-            </button>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <button onclick="openModal()" class="btn-primary">
+                    <i class="fa-solid fa-thumbtack"></i>
+                    <span class="btn-text-full">Fixar Novo Aviso</span>
+                    <span class="btn-text-mobile">Novo</span>
+                </button>
+                <button onclick="logout()" class="btn-cancel" title="Sair da conta" style="padding: 8px 12px; cursor: pointer;">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </button>
+            </div>
         </div>
     </header>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div class="flex flex-wrap items-center gap-2 pb-2 overflow-x-auto hide-scrollbar">
-            <button onclick="filterCards('todos')" class="filter-btn active bg-gray-800 text-white px-4 py-2 rounded-full text-sm font-medium transition-colors border border-gray-800" data-target="todos">
+    <div class="main-container">
+        <div class="filter-bar">
+            <button onclick="filterCards('todos')" class="filter-btn active" data-target="todos">
                 Todos
             </button>
-            <button onclick="filterCards('tcc')" class="filter-btn bg-white hover:bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm font-medium transition-colors border border-gray-300" data-target="tcc">
+            <button onclick="filterCards('tcc')" class="filter-btn" data-target="tcc">
                 TCC / Projetos
             </button>
-            <button onclick="filterCards('estagio')" class="filter-btn bg-white hover:bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm font-medium transition-colors border border-gray-300" data-target="estagio">
+            <button onclick="filterCards('estagio')" class="filter-btn" data-target="estagio">
                 Estágios
             </button>
-            <button onclick="filterCards('eventos')" class="filter-btn bg-white hover:bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm font-medium transition-colors border border-gray-300" data-target="eventos">
+            <button onclick="filterCards('eventos')" class="filter-btn" data-target="eventos">
                 Eventos
             </button>
-            <button onclick="filterCards('FaleVoce')" class="filter-btn bg-white hover:bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm font-medium transition-colors border border-gray-300" data-target="FaleVoce">
+            <button onclick="filterCards('FaleVoce')" class="filter-btn" data-target="FaleVoce">
                 Sugestões
             </button>
         </div>
 
-        <main class="mt-6 pb-12">
-            <!-- Masonry columns using Tailwind -->
-            <div id="mural-grid" class="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
+        <main class="mural-wrapper">
+            <div id="mural-grid" class="mural-grid">
                 
                 <!-- Card 1: Estágio -->
-                <div class="mural-card paper-card rounded-xl p-5 break-inside-avoid border-t-4 border-green-500" data-category="estagio">
-                    <div class="flex justify-between items-start mb-3">
-                        <span class="bg-green-100 text-green-800 text-xs font-bold px-2.5 py-1 rounded border border-green-200">Estágio</span>
-                        <span class="text-xs text-gray-400"><i class="fa-regular fa-clock"></i> Há 2h</span>
+                <article class="mural-card paper-card border-estagio" data-category="estagio">
+                    <div class="card-header">
+                        <span class="badge badge-estagio">Estágio</span>
+                        <span class="card-time"><i class="fa-regular fa-clock"></i> Há 2h</span>
                     </div>
-                    <h3 class="text-lg font-bold text-gray-900 mb-2 leading-tight">Vaga de Estágio em Suporte na IBM (Home Office)</h3>
-                    <p class="text-gray-600 text-sm mb-4">Pessoal, abriram 5 vagas de estágio para suporte N1. Foco em Linux e redes. Não precisa de experiência prévia. Mande DM para o link de indicação.</p>
-                    <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
-                        <div class="flex items-center gap-2">
-                            <div class="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center font-bold text-xs">RC</div>
-                            <div class="leading-tight">
-                                <p class="text-xs font-semibold text-gray-800">Rafael Costa</p>
-                                <p class="text-[10px] text-gray-500">Redes de Computadores</p>
+                    <h3 class="card-title">Vaga de Estágio em Suporte na IBM (Home Office)</h3>
+                    <p class="card-body">Pessoal, abriram 5 vagas de estágio para suporte N1. Foco em Linux e redes. Não precisa de experiência prévia. Mande DM para o link de indicação.</p>
+                    <div class="card-footer">
+                        <div class="user-info">
+                            <div class="avatar avatar-green">RC</div>
+                            <div class="user-details">
+                                <p class="user-name">Rafael Costa</p>
+                                <p class="user-sub">Redes de Computadores</p>
                             </div>
                         </div>
-                        <button onclick="upvote(this)" class="text-gray-400 hover:text-green-500 transition-colors flex items-center gap-1 text-sm">
-                            <i class="fa-solid fa-arrow-up"></i> <span class="count">12</span>
+                        <button onclick="upvote(this)" class="upvote-btn">
+                            <i class="fa-solid fa-arrow-up"></i> <span class="count">120</span>
                         </button>
                     </div>
-                </div>
+                </article>
 
                 <!-- Card 2: TCC -->
-                <div class="mural-card paper-card rounded-xl p-5 break-inside-avoid border-t-4 border-purple-500" data-category="tcc">
-                    <div class="flex justify-between items-start mb-3">
-                        <span class="bg-purple-100 text-purple-800 text-xs font-bold px-2.5 py-1 rounded border border-purple-200">TCC</span>
-                        <span class="text-xs text-gray-400"><i class="fa-regular fa-clock"></i> Ontem</span>
+                <article class="mural-card paper-card border-tcc" data-category="tcc">
+                    <div class="card-header">
+                        <span class="badge badge-tcc">TCC</span>
+                        <span class="card-time"><i class="fa-regular fa-clock"></i> Ontem</span>
                     </div>
-                    <h3 class="text-lg font-bold text-gray-900 mb-2 leading-tight">Precisamos de um Dev Front-end para o TCC</h3>
-                    <p class="text-gray-600 text-sm mb-4">Nossa equipe (2 alunos de back-end e 1 de banco) precisa de alguém bom com React ou Vue para fechar o escopo do projeto sobre "Gestão Hídrica Inteligente".</p>
-                    <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
-                        <div class="flex items-center gap-2">
-                            <div class="w-8 h-8 rounded-full bg-purple-500 text-white flex items-center justify-center font-bold text-xs">AS</div>
-                            <div class="leading-tight">
-                                <p class="text-xs font-semibold text-gray-800">Ana Silva</p>
-                                <p class="text-[10px] text-gray-500">ADS - 5º Semestre</p>
+                    <h3 class="card-title">Precisamos de um Dev Front-end para o TCC</h3>
+                    <p class="card-body">Nossa equipe (2 alunos de back-end e 1 de banco) precisa de alguém bom com React ou Vue para fechar o escopo do projeto sobre "Gestão Hídrica Inteligente".</p>
+                    <div class="card-footer">
+                        <div class="user-info">
+                            <div class="avatar avatar-purple">AS</div>
+                            <div class="user-details">
+                                <p class="user-name">Ana Silva</p>
+                                <p class="user-sub">ADS - 5º Semestre</p>
                             </div>
                         </div>
-                        <button onclick="upvote(this)" class="text-gray-400 hover:text-purple-500 transition-colors flex items-center gap-1 text-sm">
-                            <i class="fa-solid fa-arrow-up"></i> <span class="count">8</span>
+                        <button onclick="upvote(this)" class="upvote-btn">
+                            <i class="fa-solid fa-arrow-up"></i> <span class="count">83</span>
                         </button>
                     </div>
-                </div>
+                </article>
 
-                <!-- Card 3: Perdidos -->
-                <div class="mural-card paper-card rounded-xl p-5 break-inside-avoid border-t-4 border-orange-500" data-category="perdidos">
-                    <div class="flex justify-between items-start mb-3">
-                        <span class="bg-orange-100 text-orange-800 text-xs font-bold px-2.5 py-1 rounded border border-orange-200">Sugestões</span>
-                        <span class="text-xs text-gray-400"><i class="fa-regular fa-clock"></i> Há 30 min</span>
+                <!-- Card 3: Sugestões -->
+                <article class="mural-card paper-card border-sugestao" data-category="FaleVoce">
+                    <div class="card-header">
+                        <span class="badge badge-sugestao">Sugestões</span>
+                        <span class="card-time"><i class="fa-regular fa-clock"></i> Há 30 min</span>
                     </div>
-                    <h3 class="text-lg font-bold text-gray-900 mb-2 leading-tight">Janela danificada</h3>
-                    <p class="text-gray-600 text-sm mb-4">Janela da sala 12 (2º Andar) está quebrada e solta. A janela está pendurada e pode cair a qualquer momento. Risco do vidro danificado machucar algum aluno. URGÊNCIA!!!</p>
-                    <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
-                        <div class="flex items-center gap-2">
-                            <div class="w-8 h-8 rounded-full bg-orange-500 text-white flex items-center justify-center font-bold text-xs">MB</div>
-                            <div class="leading-tight">
-                                <p class="text-xs font-semibold text-gray-800">Marcos Bueno</p>
-                                <p class="text-[10px] text-gray-500">DSM- 1º Semestre</p>
+                    <h3 class="card-title">Janela danificada</h3>
+                    <p class="card-body">Janela da sala 12 (2º Andar) está quebrada e solta. A janela está pendurada e pode cair a qualquer momento. Risco do vidro danificado machucar algum aluno. URGÊNCIA!!!</p>
+                    <div class="card-footer">
+                        <div class="user-info">
+                            <div class="avatar avatar-orange">MB</div>
+                            <div class="user-details">
+                                <p class="user-name">Marcos Bueno</p>
+                                <p class="user-sub">DSM - 1º Semestre</p>
                             </div>
                         </div>
-                        <button onclick="upvote(this)" class="text-gray-400 hover:text-orange-500 transition-colors flex items-center gap-1 text-sm">
-                            <i class="fa-solid fa-arrow-up"></i> <span class="count">45</span>
+                        <button onclick="upvote(this)" class="upvote-btn">
+                            <i class="fa-solid fa-arrow-up"></i> <span class="count">2</span>
                         </button>
                     </div>
-                </div>
+                </article>
 
                 <!-- Card 4: Eventos -->
-                <div class="mural-card paper-card rounded-xl p-5 break-inside-avoid border-t-4 border-blue-500" data-category="eventos">
-                    <div class="flex justify-between items-start mb-3">
-                        <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-1 rounded border border-blue-200">Eventos</span>
-                        <span class="text-xs text-gray-400"><i class="fa-regular fa-clock"></i> Há 5h</span>
+                <article class="mural-card paper-card border-eventos" data-category="eventos">
+                    <div class="card-header">
+                        <span class="badge badge-eventos">Eventos</span>
+                        <span class="card-time"><i class="fa-regular fa-clock"></i> Há 5h</span>
                     </div>
-                    <h3 class="text-lg font-bold text-gray-900 mb-2 leading-tight">Hackathon Fatec: Inscrições Abertas</h3>
-                    <p class="text-gray-600 text-sm mb-4">Forme sua equipe e participe da maratona de 48h! O tema deste ano é Inovação no Campus. Prêmios para os 3 primeiros colocados. Link na bio do Instagram da atlética.</p>
-                    <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
-                        <div class="flex items-center gap-2">
-                            <div class="w-8 h-8 rounded-full bg-blue-900 text-white flex items-center justify-center font-bold text-xs"><i class="fa-solid fa-bullhorn"></i></div>
-                            <div class="leading-tight">
-                                <p class="text-xs font-semibold text-gray-800">Diretório Acadêmico</p>
-                                <p class="text-[10px] text-gray-500">Organização</p>
+                    <h3 class="card-title">Hackathon Fatec: Inscrições Abertas</h3>
+                    <p class="card-body">Forme sua equipe e participe da maratona de 48h! O tema deste ano é Inovação no Campus. Prêmios para os 3 primeiros colocados. Link na bio do Instagram da atlética.</p>
+                    <div class="card-footer">
+                        <div class="user-info">
+                            <div class="avatar avatar-blue"><i class="fa-solid fa-bullhorn"></i></div>
+                            <div class="user-details">
+                                <p class="user-name">Diretório Acadêmico</p>
+                                <p class="user-sub">Organização</p>
                             </div>
                         </div>
-                        <button onclick="upvote(this)" class="text-gray-400 hover:text-blue-500 transition-colors flex items-center gap-1 text-sm">
-                            <i class="fa-solid fa-arrow-up"></i> <span class="count">104</span>
+                        <button onclick="upvote(this)" class="upvote-btn">
+                            <i class="fa-solid fa-arrow-up"></i> <span class="count">10</span>
                         </button>
                     </div>
-                </div>
+                </article>
 
-                <!-- Card 5: TCC -->
-                <div class="mural-card paper-card rounded-xl p-5 break-inside-avoid border-t-4 border-purple-500" data-category="tcc">
-                    <div class="flex justify-between items-start mb-3">
-                        <span class="bg-purple-100 text-purple-800 text-xs font-bold px-2.5 py-1 rounded border border-purple-200">Projeto</span>
-                        <span class="text-xs text-gray-400"><i class="fa-regular fa-clock"></i> Ontem</span>
+                <!-- Card 5: TCC / Projetos -->
+                <article class="mural-card paper-card border-tcc" data-category="tcc">
+                    <div class="card-header">
+                        <span class="badge badge-tcc">Projeto</span>
+                        <span class="card-time"><i class="fa-regular fa-clock"></i> Ontem</span>
                     </div>
-                    <h3 class="text-lg font-bold text-gray-900 mb-2 leading-tight">Alguém de Gestão para estruturar plano de negócios?</h3>
-                    <p class="text-gray-600 text-sm mb-4">Nosso grupo tem 3 desenvolvedores. O app está pronto, mas precisamos de alguém de Gestão Empresarial para ajudar na parte financeira e modelo de negócios para a banca final.</p>
-                    <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
-                        <div class="flex items-center gap-2">
-                            <div class="w-8 h-8 rounded-full bg-purple-500 text-white flex items-center justify-center font-bold text-xs">LJ</div>
-                            <div class="leading-tight">
-                                <p class="text-xs font-semibold text-gray-800">Lucas Justo</p>
-                                <p class="text-[10px] text-gray-500">ADS - 5º Semestre</p>
+                    <h3 class="card-title">Alguém de Gestão para estruturar plano de negócios?</h3>
+                    <p class="card-body">Nosso grupo tem 3 desenvolvedores. O app está pronto, mas precisamos de alguém de Gestão Empresarial para ajudar na parte financeira e modelo de negócios para a banca final.</p>
+                    <div class="card-footer">
+                        <div class="user-info">
+                            <div class="avatar avatar-purple">LJ</div>
+                            <div class="user-details">
+                                <p class="user-name">Lucas Justo</p>
+                                <p class="user-sub">ADS - 5º Semestre</p>
                             </div>
                         </div>
-                        <button onclick="upvote(this)" class="text-gray-400 hover:text-purple-500 transition-colors flex items-center gap-1 text-sm">
+                        <button onclick="upvote(this)" class="upvote-btn">
                             <i class="fa-solid fa-arrow-up"></i> <span class="count">3</span>
                         </button>
                     </div>
-                </div>
+                </article>
+
             </div>
             
-            <!-- Empty state (Hidden by default) -->
-            <div id="empty-state" class="hidden flex-col items-center justify-center py-12 text-center">
-                <div class="text-gray-300 text-6xl mb-4"><i class="fa-solid fa-ghost"></i></div>
-                <h3 class="text-lg font-medium text-gray-900">Nenhum aviso nesta categoria</h3>
-                <p class="text-gray-500 text-sm">Seja o primeiro a fixar um aviso aqui!</p>
+            <!-- Estado Vazio (Sem resultados) -->
+            <div id="empty-state" class="empty-state hidden">
+                <div class="empty-icon"><i class="fa-solid fa-ghost"></i></div>
+                <h3>Nenhum aviso nesta categoria</h3>
+                <p>Seja o primeiro a fixar um aviso aqui!</p>
             </div>
         </main>
     </div>
 
-    <!-- Modal Backdrop -->
-    <div id="modal-backdrop" class="fixed inset-0 bg-gray-900/60 backdrop-blur-sm z-40 hidden flex items-center justify-center transition-opacity opacity-0">
-        <!-- Modal Content -->
-        <div id="modal-content" class="bg-white rounded-2xl shadow-2xl w-full max-w-lg mx-4 transform scale-95 transition-transform duration-300">
-            <div class="flex justify-between items-center p-6 border-b border-gray-100">
-                <h2 class="text-xl font-bold text-gray-900 flex items-center gap-2">
-                    <i class="fa-solid fa-thumbtack text-fatec-red"></i> Fixar Novo Comunicado
-                </h2>
-                <button onclick="closeModal()" class="text-gray-400 hover:text-gray-700 transition-colors">
-                    <i class="fa-solid fa-xmark text-xl"></i>
-                </button>
+    <!-- Modal para Novo Aviso -->
+    <div id="modal-backdrop" class="modal-backdrop hidden opacity-0">
+        <div id="modal-content" class="modal-card scale-95">
+            <div class="modal-header">
+                <h2><i class="fa-solid fa-thumbtack text-red"></i> Fixar Novo Comunicado</h2>
+                <button onclick="closeModal()" class="close-btn"><i class="fa-solid fa-xmark"></i></button>
             </div>
             
-            <form id="new-notice-form" onsubmit="submitForm(event)" class="p-6 space-y-4">
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Categoria</label>
-                    <select required class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-fatec-red focus:border-fatec-red outline-none bg-gray-50">
+            <form id="new-notice-form" onsubmit="submitForm(event)" class="modal-form">
+                <div class="form-group">
+                    <label>Categoria</label>
+                    <select id="form-category" required class="form-control">
                         <option value="">Selecione uma categoria...</option>
                         <option value="tcc">TCC / Projetos</option>
                         <option value="estagio">Estágios</option>
@@ -238,19 +198,19 @@
                     </select>
                 </div>
                 
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Título do Aviso</label>
-                    <input type="text" required placeholder="Ex: Preciso de dev para TCC" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-fatec-red focus:border-fatec-red outline-none bg-gray-50">
+                <div class="form-group">
+                    <label>Título do Aviso</label>
+                    <input id="form-title" type="text" required placeholder="Ex: Preciso de dev para TCC" class="form-control">
                 </div>
                 
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Descrição</label>
-                    <textarea required rows="4" placeholder="Explique os detalhes..." class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-fatec-red focus:border-fatec-red outline-none bg-gray-50 resize-none"></textarea>
+                <div class="form-group">
+                    <label>Descrição</label>
+                    <textarea id="form-desc" required rows="4" placeholder="Explique os detalhes..." class="form-control resize-none"></textarea>
                 </div>
                 
-                <div class="pt-4 flex justify-end gap-3 border-t border-gray-100 mt-6">
-                    <button type="button" onclick="closeModal()" class="px-5 py-2.5 rounded-lg text-gray-600 font-medium hover:bg-gray-100 transition-colors">Cancelar</button>
-                    <button type="submit" class="px-5 py-2.5 rounded-lg bg-fatec-red hover:bg-red-800 text-white font-medium shadow-sm transition-colors flex items-center gap-2">
+                <div class="modal-actions">
+                    <button type="button" onclick="closeModal()" class="btn-cancel">Cancelar</button>
+                    <button type="submit" class="btn-submit">
                         <i class="fa-solid fa-paper-plane"></i> Publicar no Mural
                     </button>
                 </div>
@@ -258,18 +218,142 @@
         </div>
     </div>
 
-    <!-- Toast Notification Container -->
-    <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 pointer-events-none"></div>
+    <!-- Modal / Tela de Autenticação (Login / Cadastro) -->
+    <div id="auth-modal" class="modal-backdrop" style="display: flex; z-index: 9999;">
+        <div class="modal-card" style="max-width: 400px; margin: 10vh auto;">
+            <div class="modal-header">
+                <h2><i class="fa-solid fa-lock text-red"></i> Entrar no Mural Fatec</h2>
+            </div>
+            
+            <!-- Formulário de Login -->
+            <form id="login-form" onsubmit="handleLogin(event)" class="modal-form">
+                <div class="form-group">
+                    <label>E-mail institucional</label>
+                    <input type="email" id="login-email" required placeholder="seu.email@fatec.sp.gov.br" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Senha</label>
+                    <input type="password" id="login-senha" required placeholder="Sua senha" class="form-control">
+                </div>
+                <div class="modal-actions" style="flex-direction: column; gap: 10px;">
+                    <button type="submit" class="btn-submit" style="width: 100%;">Entrar</button>
+                    <button type="button" onclick="toggleAuthMode()" class="btn-cancel" style="width: 100%; border: none; background: none; color: var(--primary); cursor: pointer;">Não tem conta? Cadastre-se</button>
+                </div>
+            </form>
 
+            <!-- Formulário de Cadastro -->
+            <form id="register-form" onsubmit="handleRegister(event)" class="modal-form hidden">
+                <div class="form-group">
+                    <label>Nome Completo</label>
+                    <input type="text" id="reg-nome" required placeholder="Ex: Ana Silva" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Curso / Semestre</label>
+                    <input type="text" id="reg-curso" required placeholder="Ex: ADS - 5º Semestre" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>E-mail</label>
+                    <input type="email" id="reg-email" required placeholder="seu.email@fatec.sp.gov.br" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Senha</label>
+                    <input type="password" id="reg-senha" required placeholder="Crie uma senha" class="form-control">
+                </div>
+                <div class="modal-actions" style="flex-direction: column; gap: 10px;">
+                    <button type="submit" class="btn-submit" style="width: 100%;">Cadastrar e Entrar</button>
+                    <button type="button" onclick="toggleAuthMode()" class="btn-cancel" style="width: 100%; border: none; background: none; color: var(--primary); cursor: pointer;">Já tem uma conta? Faça login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Container para Notificações Toast -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Script de Interatividade e Autenticação -->
     <script>
+        // --- VERIFICAÇÃO DE SESSÃO AO CARREGAR ---
+        document.addEventListener("DOMContentLoaded", () => {
+            const usuarioLogado = localStorage.getItem("mural_usuario_ativo");
+            const authModal = document.getElementById("auth-modal");
+
+            if (!usuarioLogado) {
+                authModal.style.display = "flex";
+            } else {
+                authModal.style.display = "none";
+            }
+        });
+
+        // Alternar entre formulários de Login e Cadastro
+        function toggleAuthMode() {
+            document.getElementById("login-form").classList.toggle("hidden");
+            document.getElementById("register-form").classList.toggle("hidden");
+        }
+
+        // Processo de Cadastro
+        function handleRegister(event) {
+            event.preventDefault();
+            const nome = document.getElementById("reg-nome").value;
+            const curso = document.getElementById("reg-curso").value;
+            const email = document.getElementById("reg-email").value;
+            const senha = document.getElementById("reg-senha").value;
+
+            let usuarios = JSON.parse(localStorage.getItem("mural_usuarios") || "[]");
+            
+            if (usuarios.some(u => u.email === email)) {
+                alert("Este e-mail já está cadastrado!");
+                return;
+            }
+
+            usuarios.push({ nome, curso, email, senha });
+            localStorage.setItem("mural_usuarios", JSON.stringify(usuarios));
+
+            const usuarioAtivo = { nome, curso, email };
+            localStorage.setItem("mural_usuario_ativo", JSON.stringify(usuarioAtivo));
+
+            document.getElementById("auth-modal").style.display = "none";
+            showToast("Bem-vindo!", "Cadastro realizado com sucesso.");
+        }
+
+        // Processo de Login
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById("login-email").value;
+            const senha = document.getElementById("login-senha").value;
+
+            let usuarios = JSON.parse(localStorage.getItem("mural_usuarios") || "[]");
+            
+            // Cria um usuário padrão para facilitar testes se a lista estiver vazia
+            if (usuarios.length === 0) {
+                usuarios.push({ nome: "Rafael Costa", curso: "Redes", email: "teste@fatec.sp.gov.br", senha: "123" });
+                localStorage.setItem("mural_usuarios", JSON.stringify(usuarios));
+            }
+
+            const user = usuarios.find(u => u.email === email && u.senha === senha);
+
+            if (user) {
+                const usuarioAtivo = { nome: user.nome, curso: user.curso, email: user.email };
+                localStorage.setItem("mural_usuario_ativo", JSON.stringify(usuarioAtivo));
+                document.getElementById("auth-modal").style.display = "none";
+                showToast("Login bem-sucedido!", `Olá, ${user.nome}!`);
+            } else {
+                alert("E-mail ou senha incorretos!");
+            }
+        }
+
+        // Logout
+        function logout() {
+            localStorage.removeItem("mural_usuario_ativo");
+            location.reload();
+        }
+
+        // --- FUNÇÕES ORIGINAIS DO MURAL ---
         function filterCards(category) {
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 if(btn.dataset.target === category) {
-                    btn.classList.add('bg-gray-800', 'text-white', 'border-gray-800');
-                    btn.classList.remove('bg-white', 'text-gray-700', 'border-gray-300');
+                    btn.classList.add('active');
                 } else {
-                    btn.classList.remove('bg-gray-800', 'text-white', 'border-gray-800');
-                    btn.classList.add('bg-white', 'text-gray-700', 'border-gray-300');
+                    btn.classList.remove('active');
                 }
             });
 
@@ -287,10 +371,8 @@
             const emptyState = document.getElementById('empty-state');
             if(visibleCount === 0) {
                 emptyState.classList.remove('hidden');
-                emptyState.classList.add('flex');
             } else {
                 emptyState.classList.add('hidden');
-                emptyState.classList.remove('flex');
             }
         }
 
@@ -298,14 +380,12 @@
             const countSpan = btn.querySelector('.count');
             let count = parseInt(countSpan.innerText);
             
-            if (btn.classList.contains('text-fatec-red')) {
+            if (btn.classList.contains('voted')) {
                 countSpan.innerText = count - 1;
-                btn.classList.remove('text-fatec-red');
-                btn.classList.add('text-gray-400');
+                btn.classList.remove('voted');
             } else {
                 countSpan.innerText = count + 1;
-                btn.classList.remove('text-gray-400');
-                btn.classList.add('text-fatec-red');
+                btn.classList.add('voted');
             }
             
             btn.style.transform = 'scale(1.2)';
@@ -332,13 +412,10 @@
             }, 300);
         }
 
-        // --- Form Submit & Toast ---
         function submitForm(event) {
             event.preventDefault(); 
-            
             closeModal();
             showToast('Aviso Publicado!', 'Seu recado foi fixado no mural com sucesso.');
-            
             filterCards('todos');
         }
 
@@ -346,21 +423,27 @@
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
             
-            toast.className = 'bg-white border-l-4 border-fatec-red shadow-xl rounded p-4 flex items-start gap-3 w-80 toast-enter-active pointer-events-auto';
+            toast.className = 'toast-item toast-enter';
             toast.innerHTML = `
-                <div class="text-fatec-red mt-0.5">
+                <div class="toast-icon">
                     <i class="fa-solid fa-circle-check"></i>
                 </div>
-                <div class="flex-1">
-                    <h5 class="font-bold text-sm text-gray-900 mb-1">${title}</h5>
-                    <p class="text-xs text-gray-600">${message}</p>
+                <div class="toast-content">
+                    <h5>${title}</h5>
+                    <p>${message}</p>
                 </div>
             `;
             
             container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.remove('toast-enter');
+                toast.classList.add('toast-active');
+            }, 10);
     
             setTimeout(() => {
-                toast.classList.replace('toast-enter-active', 'toast-exit-active');
+                toast.classList.remove('toast-active');
+                toast.classList.add('toast-exit');
                 setTimeout(() => toast.remove(), 300);
             }, 4000);
         }
