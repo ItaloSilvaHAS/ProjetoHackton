@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mural Digital Fatec</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css"
-</head>
+    <link rel="stylesheet" href="style.css" </head>
+
 <body>
 
     <header class="header">
@@ -21,14 +22,15 @@
                     <p class="brand-subtitle">Avisos, Sugestões e Oportunidades</p>
                 </div>
             </div>
-            
+
             <div style="display: flex; gap: 10px; align-items: center;">
                 <button onclick="openModal()" class="btn-primary">
                     <i class="fa-solid fa-thumbtack"></i>
                     <span class="btn-text-full">Fixar Novo Aviso</span>
                     <span class="btn-text-mobile">Novo</span>
                 </button>
-                <button onclick="logout()" class="btn-cancel" title="Sair da conta" style="padding: 8px 12px; cursor: pointer;">
+                <button onclick="logout()" class="btn-cancel" title="Sair da conta"
+                    style="padding: 8px 12px; cursor: pointer;">
                     <i class="fa-solid fa-right-from-bracket"></i>
                 </button>
             </div>
@@ -56,7 +58,7 @@
 
         <main class="mural-wrapper">
             <div id="mural-grid" class="mural-grid">
-                
+
                 <!-- Card 1: Estágio -->
                 <article class="mural-card paper-card border-estagio" data-category="estagio">
                     <div class="card-header">
@@ -64,7 +66,8 @@
                         <span class="card-time"><i class="fa-regular fa-clock"></i> Há 2h</span>
                     </div>
                     <h3 class="card-title">Vaga de Estágio em Suporte na IBM (Home Office)</h3>
-                    <p class="card-body">Pessoal, abriram 5 vagas de estágio para suporte N1. Foco em Linux e redes. Não precisa de experiência prévia. Mande DM para o link de indicação.</p>
+                    <p class="card-body">Pessoal, abriram 5 vagas de estágio para suporte N1. Foco em Linux e redes. Não
+                        precisa de experiência prévia. Mande DM para o link de indicação.</p>
                     <div class="card-footer">
                         <div class="user-info">
                             <div class="avatar avatar-green">RC</div>
@@ -86,7 +89,8 @@
                         <span class="card-time"><i class="fa-regular fa-clock"></i> Ontem</span>
                     </div>
                     <h3 class="card-title">Precisamos de um Dev Front-end para o TCC</h3>
-                    <p class="card-body">Nossa equipe (2 alunos de back-end e 1 de banco) precisa de alguém bom com React ou Vue para fechar o escopo do projeto sobre "Gestão Hídrica Inteligente".</p>
+                    <p class="card-body">Nossa equipe (2 alunos de back-end e 1 de banco) precisa de alguém bom com
+                        React ou Vue para fechar o escopo do projeto sobre "Gestão Hídrica Inteligente".</p>
                     <div class="card-footer">
                         <div class="user-info">
                             <div class="avatar avatar-purple">AS</div>
@@ -108,7 +112,8 @@
                         <span class="card-time"><i class="fa-regular fa-clock"></i> Há 30 min</span>
                     </div>
                     <h3 class="card-title">Janela danificada</h3>
-                    <p class="card-body">Janela da sala 12 (2º Andar) está quebrada e solta. A janela está pendurada e pode cair a qualquer momento. Risco do vidro danificado machucar algum aluno. URGÊNCIA!!!</p>
+                    <p class="card-body">Janela da sala 12 (2º Andar) está quebrada e solta. A janela está pendurada e
+                        pode cair a qualquer momento. Risco do vidro danificado machucar algum aluno. URGÊNCIA!!!</p>
                     <div class="card-footer">
                         <div class="user-info">
                             <div class="avatar avatar-orange">MB</div>
@@ -130,7 +135,8 @@
                         <span class="card-time"><i class="fa-regular fa-clock"></i> Há 5h</span>
                     </div>
                     <h3 class="card-title">Hackathon Fatec: Inscrições Abertas</h3>
-                    <p class="card-body">Forme sua equipe e participe da maratona de 48h! O tema deste ano é Inovação no Campus. Prêmios para os 3 primeiros colocados. Link na bio do Instagram da atlética.</p>
+                    <p class="card-body">Forme sua equipe e participe da maratona de 48h! O tema deste ano é Inovação no
+                        Campus. Prêmios para os 3 primeiros colocados. Link na bio do Instagram da atlética.</p>
                     <div class="card-footer">
                         <div class="user-info">
                             <div class="avatar avatar-blue"><i class="fa-solid fa-bullhorn"></i></div>
@@ -152,7 +158,9 @@
                         <span class="card-time"><i class="fa-regular fa-clock"></i> Ontem</span>
                     </div>
                     <h3 class="card-title">Alguém de Gestão para estruturar plano de negócios?</h3>
-                    <p class="card-body">Nosso grupo tem 3 desenvolvedores. O app está pronto, mas precisamos de alguém de Gestão Empresarial para ajudar na parte financeira e modelo de negócios para a banca final.</p>
+                    <p class="card-body">Nosso grupo tem 3 desenvolvedores. O app está pronto, mas precisamos de alguém
+                        de Gestão Empresarial para ajudar na parte financeira e modelo de negócios para a banca final.
+                    </p>
                     <div class="card-footer">
                         <div class="user-info">
                             <div class="avatar avatar-purple">LJ</div>
@@ -168,7 +176,7 @@
                 </article>
 
             </div>
-            
+
             <!-- Estado Vazio (Sem resultados) -->
             <div id="empty-state" class="empty-state hidden">
                 <div class="empty-icon"><i class="fa-solid fa-ghost"></i></div>
@@ -185,11 +193,11 @@
                 <h2><i class="fa-solid fa-thumbtack text-red"></i> Fixar Novo Comunicado</h2>
                 <button onclick="closeModal()" class="close-btn"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            
+
             <form id="new-notice-form" onsubmit="submitForm(event)" class="modal-form">
                 <div class="form-group">
                     <label>Categoria</label>
-                    <select id="form-category" required class="form-control">
+                    <select name="categoria" id="form-category" required class="form-control">
                         <option value="">Selecione uma categoria...</option>
                         <option value="tcc">TCC / Projetos</option>
                         <option value="estagio">Estágios</option>
@@ -197,17 +205,19 @@
                         <option value="FaleVoce">Sugestões</option>
                     </select>
                 </div>
-                
+
                 <div class="form-group">
                     <label>Título do Aviso</label>
-                    <input id="form-title" type="text" required placeholder="Ex: Preciso de dev para TCC" class="form-control">
+                    <input id="form-title" name="titulo" type="text" required placeholder="Ex: Preciso de dev para TCC"
+                        class="form-control">
                 </div>
-                
+
                 <div class="form-group">
                     <label>Descrição</label>
-                    <textarea id="form-desc" required rows="4" placeholder="Explique os detalhes..." class="form-control resize-none"></textarea>
+                    <textarea id="form-desc" name="descricao" required rows="4" placeholder="Explique os detalhes..."
+                        class="form-control resize-none"></textarea>
                 </div>
-                
+
                 <div class="modal-actions">
                     <button type="button" onclick="closeModal()" class="btn-cancel">Cancelar</button>
                     <button type="submit" class="btn-submit">
@@ -224,12 +234,13 @@
             <div class="modal-header">
                 <h2><i class="fa-solid fa-lock text-red"></i> Entrar no Mural Fatec</h2>
             </div>
-            
+
             <!-- Formulário de Login -->
             <form id="login-form" onsubmit="handleLogin(event)" class="modal-form">
                 <div class="form-group">
                     <label>E-mail institucional</label>
-                    <input type="email" id="login-email" required placeholder="seu.email@fatec.sp.gov.br" class="form-control">
+                    <input type="email" id="login-email" required placeholder="seu.email@fatec.sp.gov.br"
+                        class="form-control">
                 </div>
                 <div class="form-group">
                     <label>Senha</label>
@@ -237,7 +248,9 @@
                 </div>
                 <div class="modal-actions" style="flex-direction: column; gap: 10px;">
                     <button type="submit" class="btn-submit" style="width: 100%;">Entrar</button>
-                    <button type="button" onclick="toggleAuthMode()" class="btn-cancel" style="width: 100%; border: none; background: none; color: var(--primary); cursor: pointer;">Não tem conta? Cadastre-se</button>
+                    <button type="button" onclick="toggleAuthMode()" class="btn-cancel"
+                        style="width: 100%; border: none; background: none; color: var(--primary); cursor: pointer;">Não
+                        tem conta? Cadastre-se</button>
                 </div>
             </form>
 
@@ -253,7 +266,8 @@
                 </div>
                 <div class="form-group">
                     <label>E-mail</label>
-                    <input type="email" id="reg-email" required placeholder="seu.email@fatec.sp.gov.br" class="form-control">
+                    <input type="email" id="reg-email" required placeholder="seu.email@fatec.sp.gov.br"
+                        class="form-control">
                 </div>
                 <div class="form-group">
                     <label>Senha</label>
@@ -261,7 +275,9 @@
                 </div>
                 <div class="modal-actions" style="flex-direction: column; gap: 10px;">
                     <button type="submit" class="btn-submit" style="width: 100%;">Cadastrar e Entrar</button>
-                    <button type="button" onclick="toggleAuthMode()" class="btn-cancel" style="width: 100%; border: none; background: none; color: var(--primary); cursor: pointer;">Já tem uma conta? Faça login</button>
+                    <button type="button" onclick="toggleAuthMode()" class="btn-cancel"
+                        style="width: 100%; border: none; background: none; color: var(--primary); cursor: pointer;">Já
+                        tem uma conta? Faça login</button>
                 </div>
             </form>
         </div>
@@ -299,7 +315,7 @@
             const senha = document.getElementById("reg-senha").value;
 
             let usuarios = JSON.parse(localStorage.getItem("mural_usuarios") || "[]");
-            
+
             if (usuarios.some(u => u.email === email)) {
                 alert("Este e-mail já está cadastrado!");
                 return;
@@ -322,7 +338,7 @@
             const senha = document.getElementById("login-senha").value;
 
             let usuarios = JSON.parse(localStorage.getItem("mural_usuarios") || "[]");
-            
+
             // Cria um usuário padrão para facilitar testes se a lista estiver vazia
             if (usuarios.length === 0) {
                 usuarios.push({ nome: "Rafael Costa", curso: "Redes", email: "teste@fatec.sp.gov.br", senha: "123" });
@@ -350,7 +366,7 @@
         // --- FUNÇÕES ORIGINAIS DO MURAL ---
         function filterCards(category) {
             document.querySelectorAll('.filter-btn').forEach(btn => {
-                if(btn.dataset.target === category) {
+                if (btn.dataset.target === category) {
                     btn.classList.add('active');
                 } else {
                     btn.classList.remove('active');
@@ -369,7 +385,7 @@
             });
 
             const emptyState = document.getElementById('empty-state');
-            if(visibleCount === 0) {
+            if (visibleCount === 0) {
                 emptyState.classList.remove('hidden');
             } else {
                 emptyState.classList.add('hidden');
@@ -379,7 +395,7 @@
         function upvote(btn) {
             const countSpan = btn.querySelector('.count');
             let count = parseInt(countSpan.innerText);
-            
+
             if (btn.classList.contains('voted')) {
                 countSpan.innerText = count - 1;
                 btn.classList.remove('voted');
@@ -387,7 +403,7 @@
                 countSpan.innerText = count + 1;
                 btn.classList.add('voted');
             }
-            
+
             btn.style.transform = 'scale(1.2)';
             setTimeout(() => { btn.style.transform = 'scale(1)'; }, 150);
         }
@@ -413,16 +429,52 @@
         }
 
         function submitForm(event) {
-            event.preventDefault(); 
+            event.preventDefault();
             closeModal();
             showToast('Aviso Publicado!', 'Seu recado foi fixado no mural com sucesso.');
             filterCards('todos');
+
+            addPubli(event)
         }
+
+
+        function addPubli(form) {
+            const categoria = form.target.elements.categoria.value
+            const titulo = form.target.elements.titulo.value
+            const descricao = form.target.elements.descricao.value
+
+            const mural = document.getElementById('mural-grid')
+
+            const html = `<article class="mural-card paper-card border-estagio" data-category="estagio">
+                    <div class="card-header">
+                        <span class="badge badge-${categoria}">${categoria}</span>
+                        <span class="card-time"><i class="fa-regular fa-clock"></i> Há 2h</span>
+                    </div>
+                    <h3 class="card-title">Vaga de Estágio em Suporte na IBM (Home Office)</h3>
+                    <p class="card-body">${descricao}</p>
+                    <div class="card-footer">
+                        <div class="user-info">
+                            <div class="avatar avatar-green">RC</div>
+                            <div class="user-details">
+                                <p class="user-name">Rafael Costa</p>
+                                <p class="user-sub">Redes de Computadores</p>
+                            </div>
+                        </div>
+                        <button onclick="upvote(this)" class="upvote-btn">
+                            <i class="fa-solid fa-arrow-up"></i> <span class="count">120</span>
+                        </button>
+                    </div>
+                </article>`
+
+
+            mural.insertAdjacentHTML('afterbegin', html)
+        }
+
 
         function showToast(title, message) {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
-            
+
             toast.className = 'toast-item toast-enter';
             toast.innerHTML = `
                 <div class="toast-icon">
@@ -433,14 +485,14 @@
                     <p>${message}</p>
                 </div>
             `;
-            
+
             container.appendChild(toast);
 
             setTimeout(() => {
                 toast.classList.remove('toast-enter');
                 toast.classList.add('toast-active');
             }, 10);
-    
+
             setTimeout(() => {
                 toast.classList.remove('toast-active');
                 toast.classList.add('toast-exit');
@@ -449,4 +501,5 @@
         }
     </script>
 </body>
+
 </html>
